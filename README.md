@@ -29,3 +29,4 @@
 <br> -229: outputs_without_aux = {k: v for k, v in outputs.items() if k != 'aux_outputs' and k != 'enc_outputs'}로 수정
 <br> -246~: if 'aux_outputs' in outputs: 에서 num_boxes -> num_interaction으로 수정
 <br> -258~ :if 'enc_outputs' in outputs: 추가 및 num_boxes -> num_interaction으로 수정
+<br>9.arguments.py #HOI arguments,'--set_cost_verb_class','--obj_loss_coef','--verb_loss_coef','--hoi_path','--num_queries' arguments 추가
