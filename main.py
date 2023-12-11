@@ -11,6 +11,7 @@ import json
 import random
 import time
 from pathlib import Path
+import math
 
 import numpy as np
 import torch
@@ -33,12 +34,12 @@ def build_distil_model(args):
     return build_model(args, is_teacher=True)
 
 def main(args):
-    wandb.init(project='HOI', 
+    '''wandb.init(project='HOI', 
                name='vidt-qpic',
                )
     
     wandb.define_metric('train_loss', summary='min')
-    wandb.define_metric('val_loss', summary='min')
+    wandb.define_metric('val_loss', summary='min')'''
     """ main function to train a ViDT model """
 
     rlimit = resource.getrlimit(resource.RLIMIT_NOFILE)
@@ -73,9 +74,39 @@ def main(args):
     model, criterion, postprocessors = build_model(args)
     #vidt = torch.load("/home/sholee123/Space/HOI/hoi_vidtbased_deform/vidt_plus_swin_nano_optimized.pth")
     #model.load_state_dict(vidt['model'], strict=False)
+    vidt= torch.load("/home/student/minju/vidthoi/vidt/model/vidt_base_50.pth")
+    vidt_dict = vidt['model']
+
+    new_size = (81,256)
+    prior_prob = 0.01
+    bias_value = -math.log((1 - prior_prob) / prior_prob)
+
+    vidt_dict['class_embed.0.weight'] = torch.zeros(new_size)
+    vidt_dict['class_embed.1.weight'] = torch.zeros(new_size)
+    vidt_dict['class_embed.2.weight'] = torch.zeros(new_size)
+    vidt_dict['class_embed.3.weight'] = torch.zeros(new_size)
+    vidt_dict['class_embed.4.weight'] = torch.zeros(new_size)
+    vidt_dict['class_embed.5.weight'] = torch.zeros(new_size)
+    vidt_dict['class_embed.6.weight'] = torch.zeros(new_size)
+
+    vidt_dict['class_embed.0.bias'] = torch.ones(new_size[0])*bias_value
+    vidt_dict['class_embed.1.bias'] = torch.ones(new_size[0])*bias_value
+    vidt_dict['class_embed.2.bias'] = torch.ones(new_size[0])*bias_value
+    vidt_dict['class_embed.3.bias'] = torch.ones(new_size[0])*bias_value
+    vidt_dict['class_embed.4.bias'] = torch.ones(new_size[0])*bias_value
+    vidt_dict['class_embed.5.bias'] = torch.ones(new_size[0])*bias_value
+    vidt_dict['class_embed.6.bias'] = torch.ones(new_size[0])*bias_value
+
+
+    model.load_state_dict(vidt_dict,strict=False)
     model.to(device)
+
+    for name, param in model.named_parameters():
+        print(name)
+        if 'backbone' in name:
+            param.requires_grad = False
     
-    wandb.watch(model) #wandb
+    #wandb.watch(model) #wandb
 
     # if distil_mode is specified, load a teacher model fron a url or local path
     teacher_model = None
@@ -333,5 +364,5 @@ if __name__ == '__main__':
     main(args)
 
 
-    wandb.finish()
+    #wandb.finish()
 
