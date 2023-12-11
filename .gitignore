@@ -1,0 +1,6 @@
+#ignore
+coco/
+data/
+logs/
+*.pth
+checkpoint.pth

@@ -1,0 +1,54 @@
+<OD>
+python -m torch.distributed.launch \
+       --nproc_per_node=1 \
+       --nnodes=1 \
+       --use_env ./main.py \
+       --method vidt \
+       --backbone_name swin_nano \
+       --batch_size 2 \
+       --num_workers 2 \
+       --aux_loss True \
+       --with_box_refine True \
+       --det_token_num 300 \
+       --epff True \
+       --coco_path ./coco \
+       --resume ./vidt_plus_swin_nano_optimized.pth \
+       --pre_trained none \
+       --eval True
+
+<HOI>
+-test
+python -m torch.distributed.launch \
+       --nproc_per_node=1 \
+       --nnodes=1 \
+       --use_env ./main.py \
+       --method vidt \
+       --backbone_name swin_nano \
+       --batch_size 2 \
+       --num_workers 2 \
+       --aux_loss True \
+       --with_box_refine True \
+       --det_token_num 300 \
+       --epff True \
+       --resume ./vidt_plus_swin_nano_optimized.pth \
+       --pre_trained none \
+       --eval True \
+       --hoi
+       
+-train
+python -m torch.distributed.launch \
+       --nproc_per_node=1 \
+       --nnodes=1 \
+       --use_env ./main.py \
+       --method vidt \
+       --backbone_name swin_nano \
+       --epochs 5 \
+       --lr 1e-4 \
+       --min-lr 1e-7 \
+       --batch_size 4 \
+       --epff True\
+       --aux_loss True\
+       --with_box_refine True\
+       --num_workers 2 \
+       --output_dir ./logs \
+       --hoi
