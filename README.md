@@ -1,5 +1,22 @@
 # 2023 산업공학종합설계 과목 프로젝트 (졸업논문)
 
+* Abstract
+  이 논문은 인간과 객체 간의 상호작용(Human-Object Interaction, HOI) 탐지를 위한 새로운
+접근 방식을 제안합니다. 연구의 주된 목적은 HOI 탐지 분야에 기존 모델들의 한계를
+극복하고, 성능을 향상시키는 새로운 모델 구조를 개발하는 것입니다. 이를 위해, 우리는
+Vision and Detection Transformers(ViDT) [1] 와 Query-based Pairwise Interaction Classifier(QPIC)
+[2]를 결합하여, DETR(End-to-End Object Detection with Transformers) 기반 모델의 단점을
+해결하고자 했습니다.
+ViDT [1]는 기존의 DETR 모델을 대체하는 새로운 객체 탐지 기반 모델로, Swin Transformer의
+Attention 모델을 재구성하고 경량화된 구조를 통해 계산 부담을 줄이는 동시에 검출 성능과
+속도를 향상시켰습니다. 이 연구에서는 ViDT를 통해, DETR 모델의 긴 학습 시간, 복잡한
+최적화 과정, 그리고 긴 추론 시간이라는 주요한 제약을 극복하고, HOI 탐지의 전반적인
+성능을 개선하고자 했습니다.
+연구 결과, ViDT와 QPIC을 결합한 새로운 모델은 기대한 바에 미치지 못했습니다. 실험은
+V-COCO 데이터셋을 활용하여 진행되었으며, 주요 평가 지표로는 평균 정밀도(mAP)가
+사용되었습니다. 실험 결과는 여러 한계점을 드러냈으며, 이는 향후 연구 방향을 제시하는
+중요한 지표로 활용될 수 있습니다.
+
 ## 수정사항
 <br>1.main.py- if arf.hoi 추가
 <br>2.method-vidt-hoi.py(from QPIC) 추가
