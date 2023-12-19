@@ -1,3 +1,5 @@
+# 2023 산업공학종합설계 과목 프로젝트 (졸업논문)
+
 ## 수정사항
 <br>1.main.py- if arf.hoi 추가
 <br>2.method-vidt-hoi.py(from QPIC) 추가
