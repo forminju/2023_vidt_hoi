@@ -18,6 +18,7 @@ V-COCO 데이터셋을 활용하여 진행되었으며, 주요 평가 지표로�
 중요한 지표로 활용될 수 있습니다.
 
 ## 수정사항
+### Main branch:Anchor Embedding X
 <br>1.main.py- if arf.hoi 추가
 <br>2.method-vidt-hoi.py(from QPIC) 추가
 <br>3.matcher.py-def HungarianMatcherHOI 추가
@@ -49,3 +50,9 @@ V-COCO 데이터셋을 활용하여 진행되었으며, 주요 평가 지표로�
 <br> -246~: if 'aux_outputs' in outputs: 에서 num_boxes -> num_interaction으로 수정
 <br> -258~ :if 'enc_outputs' in outputs: 추가 및 num_boxes -> num_interaction으로 수정
 <br>9.arguments.py #HOI arguments,'--set_cost_verb_class','--obj_loss_coef','--verb_loss_coef','--hoi_path','--num_queries' arguments 추가
+### test1 branch:Anchor Embedding O
+
+hoi.py-HOIdetector-verb_class,sub_obj 레이어 수정
+hoi.py-HOIsetcriterion-focal loss 및 one hot으로 수정,def loss_obj_labels(num_interaction->num_boxes)
+QAHOI_Anchor embedding 추가-detector.py-HOIDetector 536~549
+
